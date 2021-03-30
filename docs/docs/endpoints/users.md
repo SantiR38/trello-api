@@ -27,10 +27,11 @@
 
 | Parameter             | Type   | Required | Description                           |
 | :---                  | :---:  | :---:    | :---:                                 |
-| first_name            | string | True     | User first name.                      |
-| last_name             | string | True     | User last name.                       |
 | email                 | string | True     | User email.                           |
 | password              | string | True     | Password in string. It'll be hashed.  |
+| trello_key            | string | True     | User trello key.                      |
+| trello_token          | string | True     | User trello token.                    |
+| trello_username       | string | True     | Trello username.                      |
 
 ---
 
@@ -38,10 +39,11 @@
 
 ```json
 {
-    "first_name": "John",
-    "last_name": "Doe",
     "email": "johndoe@example.com",
-    "password": "example1234"
+    "password": "example1234",
+    "trello_key": "<your-trello-key>",
+    "trello_token": "<your-trello-token>",
+    "trello_username": "johndoe1"
 }
 ```
 
@@ -50,9 +52,10 @@
 *Status = 201 Created*
 ```json
 {
-    "first_name": "John",
-    "last_name": "Doe",
-    "email": "johndoe@example.com"
+    "email": "johndoe@example.com",
+    "trello_key": "<your-trello-key>",
+    "trello_token": "<your-trello-token>",
+    "trello_username": "johndoe1"
 }
 ```
 ---

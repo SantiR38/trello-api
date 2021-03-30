@@ -14,21 +14,27 @@ class SignUpSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
+        error_messages = {'required': 'This field is required. Go to https://trello.com/app-key to get this value.'}
         model = User
-        fields = ['first_name',
-                  'last_name',
-                  'email',
-                  'password',]
+        fields = [
+            'trello_key',
+            'trello_token',
+            'trello_username',
+            'email',
+            'password'
+        ]
         extra_kwargs = {
             'password': {'write_only': True},
-            'first_name': {'required': True},
-            'last_name': {'required': True}}
+            'trello_key': {'required': True, 'error_messages': error_messages},
+            'trello_token': {'required': True, 'error_messages': error_messages},
+            'trello_username': {'required': True}
+        }
 
     def create(self, validated_data):
         """
         User create method.
         ---
-        Creates User and TypeServiceUser(all in 0) instances.
+        Creates User instances.
         """
         # User
         password = validated_data.pop('password')
