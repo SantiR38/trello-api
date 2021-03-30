@@ -13,6 +13,17 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_names_list(cls):
+        """Get names list.
+        ---
+        Shows a list with the names of all the status.
+        """
+        qs = cls.objects.all()
+        qs = list(map(lambda x: x.name, qs))
+        return qs
+        
+
 class BaseModel(models.Model):
     """BaseModel.
     ---
