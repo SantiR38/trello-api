@@ -11,10 +11,10 @@ from spacex_api.accounts.models import base, categories
 class StatusAdmin(admin.ModelAdmin):
     """Status model admin."""
 
-    list_display = ('name',)
+    list_display = ('id', 'name',)
 
 @admin.register(categories.Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Category model admin."""
 
-    list_display = ('name',)
+    list_display = ('id', 'name',)
