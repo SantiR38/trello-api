@@ -15,3 +15,27 @@ You don't need to create a superuser account after installing the project, but i
 |   1   | admin    | admin@admin.com | admin1234 |
 
 ---
+
+## Category
+
+There are three default values for `Category` model. 
+
+| id    | name             |
+| :---: | :---:            |
+|   1   | Mantenimiento    |
+|   2   | Investigación    |
+|   3   | Prueba           |
+
+---
+
+## Status
+
+There are three default values for `Status` model. 
+
+| id    | name   |
+| :---: | :---:  |
+|   1   | Issue  |
+|   2   | Bug    |
+|   3   | Task   |
+
+---
