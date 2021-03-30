@@ -3,7 +3,10 @@
 # Django
 from django.db import models
 
-class Status(models.Model):
+# Mixins
+from spacex_api.utils.mixins.models import NamesListingModelMixin
+
+class Status(NamesListingModelMixin, models.Model):
     """Status model."""
     name = models.CharField(max_length=45, unique=True)
 
@@ -13,16 +16,6 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
-    @classmethod
-    def get_names_list(cls):
-        """Get names list.
-        ---
-        Shows a list with the names of all the status.
-        """
-        qs = cls.objects.all()
-        qs = list(map(lambda x: x.name, qs))
-        return qs
-        
 
 class BaseModel(models.Model):
     """BaseModel.

@@ -3,10 +3,13 @@
 # Django
 from django.db import models
 
+# Mixins
+from spacex_api.utils.mixins.models import NamesListingModelMixin
+
 # Models
 from spacex_api.accounts.models.base import BaseModel
 
-class Category(BaseModel):
+class Category(NamesListingModelMixin, BaseModel):
     """Category class."""
     name = models.CharField(max_length=45)
 
