@@ -29,7 +29,7 @@ First of all, you have to register your user in the url `http://localhost:8000/a
     "password": "example1234",
     "trello_key": "<your-trello-key>",
     "trello_token": "<your-trello-token>",
-    "trello_username": "johndoe1"
+    "trello_username": "<your-trello-username>"
 }
 ```
 

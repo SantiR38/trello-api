@@ -23,7 +23,7 @@ urlpatterns = [
 
                   # Custom urls
                   path("api/v1/users/", include("spacex_api.users.urls", namespace="users")),
-                  path("api/v1/accounts/", include("spacex_api.accounts.urls", namespace="accounts")),
+                  path("api/v1/trello/", include("spacex_api.accounts.urls", namespace="trello")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
