@@ -12,5 +12,7 @@ class NamesListingModelMixin:
         Shows a list with the names of all the instances.
         """
         qs = cls.objects.all()
-        qs = list(map(lambda x: x.name, qs))
-        return qs
+        if qs.exists():
+            qs = list(map(lambda x: x.name, qs))
+            return qs
+        return []
