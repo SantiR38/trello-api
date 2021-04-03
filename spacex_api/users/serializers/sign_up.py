@@ -42,7 +42,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         user = User(**validated_data, username=validated_data['email'])
         user.set_password(password)
-        response = create_board(user=user, name="Space-X Team")
+        response = create_board(user=user)
         if response.status_code == 200:
             user.trello_board_id = response.json()["id"]
         user.save()
