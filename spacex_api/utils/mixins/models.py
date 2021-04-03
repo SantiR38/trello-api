@@ -1,5 +1,8 @@
 """Mixins for models."""
 
+# Django
+from django.db.utils import ProgrammingError
+
 class NamesListingModelMixin:
     """Names listing model mixin.
     ---
@@ -11,8 +14,11 @@ class NamesListingModelMixin:
         ---
         Shows a list with the names of all the instances.
         """
-        qs = cls.objects.all()
-        if qs.exists():
-            qs = list(map(lambda x: x.name, qs))
-            return qs
+        try:
+            qs = cls.objects.all()
+            if qs.exists():
+                qs = list(map(lambda x: x.name, qs))
+                return qs
+        except ProgrammingError:
+            pass
         return []

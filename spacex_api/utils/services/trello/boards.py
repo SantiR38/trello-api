@@ -1,44 +1,36 @@
 """Trello Boards services."""
 
+# Python Libraries
 import requests
 
-def get_needed_data(element):
-    """Get needed data
-    ---
-    Gets all the data from the api response
-    and returns it sintetized.
-    """
-    data = {
-        "id": element["id"],
-        "name": element["name"]
-    }
-    if "url" in element:
-        data["url"] = element["url"]
-    return data
+# Services
+from .base import get_needed_data, perform_request
+from .lists import get_lists
+from .labels import create_label
 
-# --------- LISTS ---------- #
 
-def get_lists(user=None, board_id=None):
-    """Get boards
-    ---
-    Make a list with all the trello boards.
-    """
-    url = f"https://api.trello.com/1/boards/{board_id}/lists"
+def create_board(user=None):
+    """Create a board."""
+    url = f"https://api.trello.com/1/boards/"
     query = {
-        'key': user.trello_key,
-        'token': user.trello_token
+        'name': "Space-X tasks"
     }
-
-    response = requests.request(
-        "GET",
-        url,
-        params=query
+    response = perform_request(
+        method="POST",
+        url=url,
+        query=query,
+        user=user
     )
-    board_lists = list(map(get_needed_data, response.json()))
-    return board_lists
-
-
-# --------- BOARDS ---------- #
+    if response.status_code == 200:
+        data = {
+            "red": "Maintenance",
+            "blue": "Research",
+            "green": "Test"
+        }
+        for key, value in data.items():
+            create_label(user=user, color=key, name=value, board_id=response.json()["id"])
+    return response
+    
 
 def get_boards(user=None):
     """Get boards
@@ -46,49 +38,12 @@ def get_boards(user=None):
     Make a list with all the trello boards.
     """
     url = f"https://api.trello.com/1/members/{user.trello_username}/boards"
-    query = {
-        'key': user.trello_key,
-        'token': user.trello_token
-    }
-
-    response = requests.request(
-        "GET",
-        url,
-        params=query
+    response = perform_request(
+        method="GET",
+        url=url,
+        user=user
     )
     boards = list(map(get_needed_data, response.json()))
     for board in boards:
         board["lists"] = get_lists(user=user, board_id=board["id"])
     return boards
-
-
-
-
-
-
-# def consume_global_pay_api(
-#         context=None,
-#         url=None,
-#         app_code=env("SERVER_APP_CODE"),
-#         app_key=env("SERVER_APP_KEY"),
-#         http_method="POST",
-#         params=None
-#     ):
-#     """Make payment function."""
-    
-#     headers = {'Auth-Token': auth.get_token(
-#         app_code=app_code,
-#         app_key=app_key
-#     )}
-
-
-#     r = None
-#     if http_method == "POST":
-#         r = requests.post(
-#             url,
-#             data=json.dumps(context, default=decimal_default),
-#             headers=headers
-#         )
-#     elif http_method == "GET":
-#         r = requests.get(url, params=params, headers=headers)
-#     return r

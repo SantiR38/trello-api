@@ -6,6 +6,8 @@ from rest_framework import serializers
 # Models
 from spacex_api.users.models import User
 
+# Services
+from spacex_api.utils.services.trello.boards import create_board
 
 class SignUpSerializer(serializers.ModelSerializer):
     """Sign Up serializer.
@@ -40,6 +42,16 @@ class SignUpSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         user = User(**validated_data, username=validated_data['email'])
         user.set_password(password)
+        response = create_board(user=user, name="Space-X Team")
+        if response.status_code == 200:
+            user.trello_board_id = response.json()["id"]
         user.save()
-
         return user
+
+    def to_representation(self, instance):
+        """Set country_id to string."""
+        ret = super().to_representation(instance)
+        if instance.trello_board_id is None:
+            ret["error"] = {"Error": "The Trello board was not created."}
+        return ret
+
