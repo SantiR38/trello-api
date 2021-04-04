@@ -31,7 +31,6 @@
 | password              | string | True     | Password in string. It'll be hashed.  |
 | trello_key            | string | True     | User trello key.                      |
 | trello_token          | string | True     | User trello token.                    |
-| trello_username       | string | True     | Trello username.                      |
 
 ---
 
@@ -42,8 +41,7 @@
     "email": "johndoe@example.com",
     "password": "example1234",
     "trello_key": "<your-trello-key>",
-    "trello_token": "<your-trello-token>",
-    "trello_username": "johndoe1"
+    "trello_token": "<your-trello-token>"
 }
 ```
 
@@ -54,8 +52,7 @@
 {
     "email": "johndoe@example.com",
     "trello_key": "<your-trello-key>",
-    "trello_token": "<your-trello-token>",
-    "trello_username": "johndoe1"
+    "trello_token": "<your-trello-token>"
 }
 ```
 ---

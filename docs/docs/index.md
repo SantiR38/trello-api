@@ -29,7 +29,6 @@ First of all, you have to register your user in the url `http://localhost:8000/a
     "password": "example1234",
     "trello_key": "<your-trello-key>",
     "trello_token": "<your-trello-token>",
-    "trello_username": "<your-trello-username>"
 }
 ```
 
@@ -38,7 +37,7 @@ First of all, you have to register your user in the url `http://localhost:8000/a
 ```shell
 curl --header "Content-Type: application/json" \
     --request POST \
-    --data '{ "email": "johndoe@example.com", "password": "example1234", "trello_key": "d13dfb06s56s2d31f9dfca2", "trello_token": "45sd45f5s60f9967c035565sfd65465dfs4gsd654d25e95e8e163df5g4603e5", "trello_username": "johndoe1"}' \
+    --data '{ "email": "johndoe@example.com", "password": "example1234", "trello_key": "d13dfb06s56s2d31f9dfca2", "trello_token": "45sd45f5s60f9967c035565sfd65465dfs4gsd654d25e95e8e163df5g4603e5"}' \
     http://localhost:8000/api/v1/users/sign-up/
 ```
 
@@ -46,7 +45,7 @@ curl --header "Content-Type: application/json" \
 
 *Status 201 Created*
 ```json
-{"trello_key":"d13dfb06s56s2d31f9dfca2","trello_token":"45sd45f5s60f9967c035565sfd65465dfs4gsd654d25e95e8e163df5g4603e5","trello_username":"johndoe1","email":"johndoe@example.com"}
+{"trello_key":"d13dfb06s56s2d31f9dfca2","trello_token":"45sd45f5s60f9967c035565sfd65465dfs4gsd654d25e95e8e163df5g4603e5","email":"johndoe@example.com"}
 ```
 
 You can get the Trello credentials by accesing the https://trello.com/app-key.

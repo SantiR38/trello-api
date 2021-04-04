@@ -19,7 +19,6 @@ class User(AbstractUser):
             'unique': 'A user with that email already exists.'
         }
     )
-    trello_username = models.CharField(max_length=140, null=True)
     trello_key = models.CharField(max_length=140, null=True)
     trello_token = models.CharField(max_length=255, null=True)
     trello_board_id = models.CharField(max_length=140, null=True)

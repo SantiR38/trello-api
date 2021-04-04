@@ -32,7 +32,7 @@ def create_board(user=None):
         }
         for key, value in data.items():
             create_label(user=user, color=key, name=value, board_id=response.json()["id"])
-    return response
+    return response   
     
 
 def get_boards(user=None):
@@ -40,7 +40,7 @@ def get_boards(user=None):
     ---
     Make a list with all the trello boards.
     """
-    url = f"https://api.trello.com/1/members/{user.trello_username}/boards"
+    url = f"https://api.trello.com/1/members/me/boards"
     response = perform_request(
         method="GET",
         url=url,

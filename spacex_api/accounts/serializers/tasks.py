@@ -86,12 +86,4 @@ class TaskSerializer(serializers.Serializer):
         response = create_card(**validated_data)
         print(response.status_code)
 
-        return response
-
-    # Card attrs
-    
-    # name
-    # desc
-    # idList (req)
-    # idMembers ["member_1", "member_2"]
-    # idLabels  ["label_1", "label_2"]
+        return response.json()
