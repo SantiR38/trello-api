@@ -7,6 +7,7 @@ from rest_framework import serializers
 from spacex_api.users.models import User
 
 # Services
+from spacex_api.utils.services.trello.base import validate_trello_data
 from spacex_api.utils.services.trello.boards import create_board
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -21,7 +22,6 @@ class SignUpSerializer(serializers.ModelSerializer):
         fields = [
             'trello_key',
             'trello_token',
-            'trello_username',
             'email',
             'password'
         ]
@@ -29,8 +29,18 @@ class SignUpSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'trello_key': {'required': True, 'error_messages': error_messages},
             'trello_token': {'required': True, 'error_messages': error_messages},
-            'trello_username': {'required': True}
         }
+
+    def validate(self, attrs):
+        """Validate signing up."""
+        url = f"https://api.trello.com/1/members/me/boards"
+        query = {
+            "key": attrs["trello_key"],
+            "token": attrs["trello_token"],
+        }
+        if not validate_trello_data(params=query, url=url):
+            raise serializers.ValidationError({"detail": "Your trello key or token are incorrect."})
+        return attrs
 
     def create(self, validated_data):
         """

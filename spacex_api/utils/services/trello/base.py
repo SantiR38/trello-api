@@ -23,3 +23,11 @@ def perform_request(method="GET", query=dict(), user=None, url=None, **kwargs):
     query["token"] = user.trello_token
     response = requests.request(method, url, params=query, **kwargs)
     return response
+
+def validate_trello_data(**kwargs):
+    """Validate trello data
+    ---
+    Kwargs: `url`, `params`, 
+    """
+    response = requests.request("GET", **kwargs)
+    return response.status_code == 200
