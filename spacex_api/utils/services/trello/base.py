@@ -17,9 +17,9 @@ def get_needed_data(element):
         data["url"] = element["url"]
     return data
 
-def perform_request(method="GET", query=dict(), user=None, url=None):
+def perform_request(method="GET", query=dict(), user=None, url=None, **kwargs):
     """Perform request Trello function."""
     query["key"] = user.trello_key
     query["token"] = user.trello_token
-    response = requests.request("POST", url, params=query)
+    response = requests.request(method, url, params=query, **kwargs)
     return response

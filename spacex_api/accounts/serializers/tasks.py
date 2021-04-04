@@ -1,70 +1,97 @@
 """Tasks serializers."""
 
+# Python Libraries
+from random import random
+from math import floor
+from random_word import RandomWords
+
 # Django
 from django.utils.translation import gettext_lazy as _
 
 # Rest Framework
 from rest_framework import serializers
 
-# Models
-from spacex_api.accounts.models.tasks import Task
-from spacex_api.accounts.models.base import Status
-from spacex_api.accounts.models.categories import Category
-
 # Services
 from spacex_api.utils.services.trello.cards import create_card
+from spacex_api.utils.services.trello.boards import get_a_board
 
 
-class TaskSerializer(serializers.ModelSerializer):
-    """Task model serializer.
+class TaskSerializer(serializers.Serializer):
+    """Task serializer.
     ---
     This class run all the logic behind the http request
     for sending the tasks to Trello.
     """
-    status_id = serializers.SlugRelatedField(
-        slug_field="name",
-        queryset=Status.objects.all(),
-        required=True,
-        error_messages={
-            'does_not_exist': _('Object with {slug_name}={value} does not exist. Valid options are %s' % str(Status.get_names_list())),
-        }
-    )
-    category_id = serializers.SlugRelatedField(
-        slug_field="name",
-        queryset=Category.objects.all(),
-        required=False,
-        error_messages={
-            'does_not_exist': _('Object with {slug_name}={value} does not exist. Valid options are %s' % str(Category.get_names_list())),
-        }
-    )
-
-    class Meta:
-        model = Task
-        fields = '__all__'
-        read_only_fields = ('created', 'modified',)
-        extra_kwargs = {'trello_list': {'required': True}}
+    name  = serializers.CharField(required=False)
+    desc = serializers.CharField(required=False)
+    category = serializers.CharField(required=False)
 
     def validate(self, attrs):
         """Validate.
         ---
-        1. Set `user_id` from request.user in `attrs`
+        1. Get user instance from request.
+        2. Get Board.
+        3. Validate categories.
+            3.1 Get board labels
+            3.2 Set labels as category choices
+        4. Get id of board members.
+        5. Get board ToDo list.
+        6. If category == "Bug":
+            6.1. Autogenerate name.
+            6.2. A random member is assigned to a "Bug" task.
+        7. Categories become idLabels.
         """
+        # 1. Get user instance from request.
         request = self.context.get("request")
         if request and hasattr(request, "user") and request.method == "POST":
             attrs['user_id'] = request.user
-        
+
+        # 2. Get Board
+        board = get_a_board(user=request.user)
+
+        # 3. Validate categories.
+        # 3.1 Get board labels
+        category_choices = [i["name"] for i in board["labels"]]
+        # 3.2 Set labels as category choices
+        if attrs["category"] not in category_choices:
+            raise serializers.ValidationError({"detail": f"{attrs['category']} is not a valid option. Valid options are: {str(category_choices)}"})
+
+        # 4. Get id of board members
+        members_ids = [i["id"] for i in board["members"]]
+
+        # 5. Get board ToDo list.
+        lists_id = [i for i in board["lists"]]
+        attrs["idList"] = list(filter(lambda x: x["name"] == "To Do", lists_id))[0]["id"]
+
+        # 6. If category == "Bug":
+        if attrs["category"] == "Bug":
+            # 6.1. Autogenerate name.
+            attrs["name"] = f"Bug-{RandomWords().get_random_word()}-{floor(random()*100000 + 1)}"
+            # 6.2. A random member will be assigned to a "Bug" task.
+            attrs["idMembers"] = [members_ids[floor(random()*len(members_ids))]]
+
+        # 7. Categories become idLabels.
+        labels = list(filter(lambda x: x["name"]==attrs["category"], board["labels"]))
+        attrs["idLabels"] = list(map(lambda x: x["id"], labels))
+        attrs.pop("category")
+
         return attrs
         
 
     def create(self, validated_data):
         """Create method.
         ---
-        1. Send information to Trello.
-        2. Save information in the database.
+        Send information to Trello cards.
         """
-        instance = super().create(validated_data)
-        # create_card(
-        #     task=instance
-        # )
+        response = create_card(**validated_data)
+        print(response.status_code)
 
-        return instance
+        return response
+
+    # Card attrs
+    
+    # name
+    # desc
+    # idList (req)
+    # idMembers ["member_1", "member_2"]
+    # idLabels  ["label_1", "label_2"]

@@ -4,7 +4,7 @@
 import requests
 
 # Services
-from .base import get_needed_data
+from spacex_api.utils.services.trello.base import get_needed_data, perform_request
 
 def get_lists(user=None, board_id=None):
     """Get boards
@@ -17,5 +17,6 @@ def get_lists(user=None, board_id=None):
         url=url,
         user=user
     )
+    print(f"Get lists status: {response.status_code}")
     board_lists = list(map(get_needed_data, response.json()))
     return board_lists

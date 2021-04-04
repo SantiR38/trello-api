@@ -3,14 +3,8 @@
 # Libraries
 import requests
 
-def create_card_data(task):
-   """Create card data.
-   ---
-   This function is called bay `create_card()`.
-   It only creates the json data so `create_card()`
-   can send the information to Trello.
-   """
-
+# Services
+from spacex_api.utils.services.trello.base import perform_request
 
 def create_card(**kwargs):
    """Create card.
@@ -19,19 +13,16 @@ def create_card(**kwargs):
    after saving an instance of task.
    The instance data is sended to Trello, and saved as a card.
    """
-   data = create_card_data(task)
    url = "https://api.trello.com/1/cards"
-   user = kwargs["user_id"]
-   query = {
-      'idList': "",
-      "name": "",
-      "desc": ""
-   }
+   user = kwargs.pop("user_id")
+   print(kwargs)
    response = perform_request(
       method="POST",
       url=url,
-      query=query,
+      query=kwargs,
       user=user
     )
+   print(f"Create card status: {response.status_code}")
+   print(response.json())
    return response
    
