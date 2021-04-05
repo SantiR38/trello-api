@@ -27,8 +27,8 @@ class SignUpSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             'password': {'write_only': True},
-            'trello_key': {'required': True, 'error_messages': error_messages},
-            'trello_token': {'required': True, 'error_messages': error_messages},
+            'trello_key': {'required': True, 'error_messages': error_messages, 'write_only': True},
+            'trello_token': {'required': True, 'error_messages': error_messages, 'write_only': True},
         }
 
     def validate(self, attrs):
