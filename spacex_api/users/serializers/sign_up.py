@@ -22,6 +22,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         fields = [
             'trello_key',
             'trello_token',
+            'trello_board_id',
             'email',
             'password'
         ]
