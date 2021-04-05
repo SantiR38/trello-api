@@ -1,40 +1,19 @@
 # Trello endpoints
 ---
 
-## Index
+## Create task
 
-#### Environment variables
-
-`{url}`: `{host}`/api/v1/trello
-
-*Example: `{url}`/trello/boards/ == www.example.com/api/v1/trello/boards/*
-
-#### URLs List
-
-| Resource                       | POST         | GET          |
-| :----                          |     :-----:  | :---:        |
-| [`{url}`/boards/][1]           |              | List boards. |
-
-
-`*` Only Admin users have access.
-
-`#` No authentication required.
+`POST http://localhost:8000/api/v1/trello/tasks/`
 
 ---
-
-## boards/
-
-### GET
-
-Before creating a task, you need to consume this endpoint in order to get the `idList` of the List where you want to save your cards.
-The access token is the only parameter this endpoint will need.
 
 **Request Example**
 
 ```shell
 curl --header "Authorization: Bearer {your-access-token}" \
-    --request GET \
-    http://localhost:8000/api/v1/trello/boards/
+    --request POST \
+    --data '{"desc": "Lorem ipsum dolor sit ammet", "category": "Bug"}' \
+    http://localhost:8000/api/v1/trello/tasks/
 ```
 
 **Response Example**
@@ -79,5 +58,3 @@ curl --header "Authorization: Bearer {your-access-token}" \
 ```
 
 ---
-
-[1]: #boards

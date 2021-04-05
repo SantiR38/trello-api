@@ -45,7 +45,7 @@ curl --header "Content-Type: application/json" \
 
 *Status 201 Created*
 ```json
-{"trello_key":"d13dfb06s56s2d31f9dfca2","trello_token":"45sd45f5s60f9967c035565sfd65465dfs4gsd654d25e95e8e163df5g4603e5","email":"johndoe@example.com"}
+{"email":"johndoe@example.com"}
 ```
 
 You can get the Trello credentials by accesing the https://trello.com/app-key.
