@@ -19,9 +19,12 @@ class User(AbstractUser):
             'unique': 'A user with that email already exists.'
         }
     )
+    trello_key = models.CharField(max_length=140, null=True)
+    trello_token = models.CharField(max_length=255, null=True)
+    trello_board_id = models.CharField(max_length=140, null=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = []
 
     def get_absolute_url(self):
         """Get url for user's detail view.

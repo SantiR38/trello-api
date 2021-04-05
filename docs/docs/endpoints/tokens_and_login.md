@@ -1,4 +1,4 @@
-# Tokens and login endpoints
+# Login endpoints
 ---
 
 ## Index
@@ -11,11 +11,11 @@
 
 #### URLs List
 
-| Resource                                         | POST                                   | GET                            |
-| :----                                            |     :-----:                            | :---:                          |
-| [`{host}`/api/token/][1]                         | Get Access and refresh tokens (log in) ||
-| [`{host}`/api/token/refresh/][2]                 | Get Access tokens from refresh token.  ||
-| [`{host}`/api/token/verify/][3]                  | Validate tokens expiration.            ||
+| Resource                           | POST                                   |
+| :----                              |     :-----:                            |
+| [`{host}`/api/token/][1]           | Get Access and refresh tokens (log in) |
+| [`{host}`/api/token/refresh/][2]   | Get Access tokens from refresh token.  |
+| [`{host}`/api/token/verify/][3]    | Validate tokens expiration.            |
 
 `*` Only Admin users have access.
 
@@ -32,7 +32,7 @@
 | Parameter             | Type   | Required | Description          |
 | :---                  | :---:  | :---:    | :---:                |
 | email                 | string | True     | User email.          |
-| password              | string | True     | Password in string.   |
+| password              | string | True     | Password in string.  |
 
 ---
 

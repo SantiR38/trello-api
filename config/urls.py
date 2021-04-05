@@ -14,14 +14,8 @@ from rest_framework_simplejwt.views import (
 from spacex_api.views.custom_token_view import MyTokenObtainPairView
 
 urlpatterns = [
-                  path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-                  path(
-                      "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-                  ),
                   # Django Admin, use {% url 'admin:index' %}
                   path(settings.ADMIN_URL, admin.site.urls),
-                  # User management
-                  path("allauth/", include("allauth.urls")),
 
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
                   path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -29,7 +23,7 @@ urlpatterns = [
 
                   # Custom urls
                   path("api/v1/users/", include("spacex_api.users.urls", namespace="users")),
-                  path("api/v1/accounts/", include("spacex_api.accounts.urls", namespace="accounts")),
+                  path("api/v1/trello/", include("spacex_api.accounts.urls", namespace="trello")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

@@ -22,8 +22,13 @@ djangorestframework==3.12.2  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.5.0 # https://github.com/adamchainz/django-cors-headers
 djoser==2.0.3
 environ==1.0
+Random-Word # https://pypi.org/project/Random-Word/
 
 # JWT
 # -------------------------------------------------------------------------------
 PyJWT==1.7.1
 djangorestframework_simplejwt==4.5.0
+
+# Requests
+# -------------
+requests>=2.22.0

@@ -71,6 +71,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "corsheaders",
+    "random_word",
 ]
 
 LOCAL_APPS = [

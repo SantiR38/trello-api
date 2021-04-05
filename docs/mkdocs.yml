@@ -4,12 +4,12 @@ site_dir: /docs/_build
 nav:
     - Home: index.md
     - Database: 
-        - Scheme: database/scheme.md
         - Default values: database/default_values.md
     - API Guide:
         - Status codes: status_codes.md
     - Endpoints:
-        - Tokens and login: endpoints/tokens_and_login.md
-        - Users: endpoints/users.md
+        - Sign up: endpoints/users.md
+        - Login: endpoints/tokens_and_login.md
+        - Trello: endpoints/trello.md
 
 theme: readthedocs
