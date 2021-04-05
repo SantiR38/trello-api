@@ -22,7 +22,7 @@ class TaskSerializer(serializers.Serializer):
     This class run all the logic behind the http request
     for sending the tasks to Trello.
     """
-    name  = serializers.CharField(required=False)
+    name = serializers.CharField(required=False)
     desc = serializers.CharField(required=False)
     category = serializers.CharField(required=False)
 
@@ -73,7 +73,6 @@ class TaskSerializer(serializers.Serializer):
         # 7. Categories become idLabels.
         labels = list(filter(lambda x: x["name"]==attrs["category"], board["labels"]))
         attrs["idLabels"] = list(map(lambda x: x["id"], labels))
-        attrs.pop("category")
 
         return attrs
         
@@ -83,6 +82,7 @@ class TaskSerializer(serializers.Serializer):
         ---
         Send information to Trello cards.
         """
+        validated_data.pop('category')
         response = create_card(**validated_data)
         print(response.status_code)
 
