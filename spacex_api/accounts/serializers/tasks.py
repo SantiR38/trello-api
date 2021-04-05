@@ -24,7 +24,7 @@ class TaskSerializer(serializers.Serializer):
     """
     name = serializers.CharField(required=False)
     desc = serializers.CharField(required=False)
-    category = serializers.CharField(required=False)
+    category = serializers.CharField(required=True, write_only=True)
 
     def validate(self, attrs):
         """Validate.
