@@ -8,8 +8,8 @@ nav:
     - API Guide:
         - Status codes: status_codes.md
     - Endpoints:
-        - Tokens and login: endpoints/tokens_and_login.md
-        - Users: endpoints/users.md
+        - Sign up: endpoints/users.md
+        - Login: endpoints/tokens_and_login.md
         - Trello: endpoints/trello.md
 
 theme: readthedocs

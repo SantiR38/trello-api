@@ -7,54 +7,33 @@
 
 ---
 
+For this request you need to authorize with a bearer token that you get in [the login endpoints](/docs/_build/endpoints/tokens_and_login/).
+After sending the request, your card will be created in Trello.
+
+| Parameter    | Type   | Required | Description         |
+| :---         | :---:  | :---:    | :---:               |
+| name         | string | False    | Task name.          |
+| desc         | string | False    | Task description.   |
+| category     | string | True     | Task category.      |
+
+---
+
 **Request Example**
 
-```shell
-curl --header "Authorization: Bearer {your-access-token}" \
-    --request POST \
-    --data '{"desc": "Lorem ipsum dolor sit ammet", "category": "Bug"}' \
-    http://localhost:8000/api/v1/trello/tasks/
+```json
+{
+    "desc": "Lorem ipsum sit ammet",
+    "category": "Bug"
+}
 ```
 
 **Response Example**
 
 ```json
-[
-    {
-        "id": "3klj2435kj2n4lk5j24n3lkj",
-        "name": "Reportes",
-        "url": "https://trello.com/b/lk23jk4/reportes",
-        "lists": [
-            {
-                "id": "3klj2435kj2n4lk5j24n3lkj",
-                "name": "Documentos Anexos"
-            },
-            {
-                "id": "3klj2435kj2n4lk5j24n3lkj",
-                "name": "Reportes de backoffice"
-            }
-        ]
-    },
-    {
-        "id": "3klj2435kj2n4lk5j24n3lkj",
-        "name": "Tareas",
-        "url": "https://trello.com/b/lk23jk4/tareas",
-        "lists": [
-            {
-                "id": "3klj2435kj2n4lk5j24n3lkj",
-                "name": "Lista de tareas"
-            },
-            {
-                "id": "3klj2435kj2n4lk5j24n3lkj",
-                "name": "En proceso"
-            },
-            {
-                "id": "3klj2435kj2n4lk5j24n3lkj",
-                "name": "Hecho"
-            }
-        ]
-    }
-]
+{
+    "name": "Bug-worryingly-35914",
+    "desc": "Lorem ipsum sit ammet"
+}
 ```
 
 ---
